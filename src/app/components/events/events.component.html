@@ -1,0 +1,41 @@
+<div class="container pt-5 text-white">
+  <h3>Registro de Eventos</h3>
+
+  <form [formGroup]="miFormulario" (ngSubmit)="onSubmit()">
+    <div class="form-group mt-4">
+      <label for="txtDescripcionEvento">Descripción evento</label>
+      <input
+        [class.is-invalid]="
+          miFormulario.get('descripcionEvento')?.touched &&
+          miFormulario.get('descripcionEvento')?.invalid
+        "
+        formControlName="descripcionEvento"
+        type="text"
+        class="form-control"
+        id="txtDescripcionEvento"
+        autofocus
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-group mt-4">
+      <label for="lblTipoEvento">Tipo de Evento</label>
+      <select
+        name="selectTipoEvento"
+        (change)="changeEventType($event)"
+        formControlName="tipoEvento"
+        class="form-select"
+        aria-label="Tipo de evento"
+      >
+        <option value="" disable>-Seleccione-</option>
+        <option *ngFor="let event of eventList" [ngValue]="event">
+          {{ event }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mt-5">
+      <button type="submit" class="btn btn-secondary w-100">Guardar</button>
+    </div>
+  </form>
+</div>
