@@ -6,9 +6,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar';
 import { HomeComponent } from './components/home';
-import { EventsComponent } from './components/events';
 import { FooterComponent } from './components/footer';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ApiService } from './services';
+import { HttpClientModule } from '@angular/common/http';
+import { EventsComponent, TableRenderComponent } from './components/events';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     EventsComponent,
     FooterComponent,
+    TableRenderComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,8 +27,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
