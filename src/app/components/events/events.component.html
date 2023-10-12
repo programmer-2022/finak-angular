@@ -3,16 +3,16 @@
 
   <form [formGroup]="miFormulario" (ngSubmit)="onSubmit()">
     <div class="form-group mt-4">
-      <label for="txtDescripcionEvento">Descripción evento</label>
+      <label for="txtDescripcion">Descripción evento</label>
       <input
         [class.is-invalid]="
-          miFormulario.get('descripcionEvento')?.touched &&
-          miFormulario.get('descripcionEvento')?.invalid
+          miFormulario.get('descripcion')?.touched &&
+          miFormulario.get('descripcion')?.invalid
         "
-        formControlName="descripcionEvento"
+        formControlName="descripcion"
         type="text"
         class="form-control"
-        id="txtDescripcionEvento"
+        id="txtDescripcion"
         autofocus
         autocomplete="off"
       />
@@ -28,8 +28,8 @@
         aria-label="Tipo de evento"
       >
         <option value="" disable>-Seleccione-</option>
-        <option *ngFor="let event of eventList" [ngValue]="event">
-          {{ event }}
+        <option *ngFor="let event of eventTypeList" [ngValue]="event.id">
+          {{ event.value }}
         </option>
       </select>
     </div>
@@ -38,4 +38,7 @@
       <button type="submit" class="btn btn-secondary w-100">Guardar</button>
     </div>
   </form>
+
 </div>
+
+<app-table-event></app-table-event>

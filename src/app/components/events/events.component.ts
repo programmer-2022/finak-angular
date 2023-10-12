@@ -1,29 +1,43 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ApiService } from '../../services';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
 })
 export class EventsComponent {
+  constructor(
+    public fb: FormBuilder,
+    private readonly apiService: ApiService
+  ) {}
+
   public isSubmitted: boolean = false;
-  public eventList: string[] = ['Forma Manual', 'API'];
+  public eventTypeList = [
+    {
+      id: 1,
+      value: 'API',
+    },
+    {
+      id: 2,
+      value: 'Forma Manual',
+    },
+  ];
 
   public miFormulario = this.fb.group({
-    descripcionEvento: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
     tipoEvento: ['', [Validators.required]],
   });
 
-  constructor(public fb: FormBuilder) {}
-
   changeEventType(event: any) {
+    console.log(event.target.value);
     this.tipoEvento?.setValue(event.target.value, {
       onlySelf: true,
     });
   }
 
   get descripcionEvento() {
-    return this.miFormulario.get('descripcionEvento');
+    return this.miFormulario.get('descripcion');
   }
 
   get tipoEvento() {
@@ -31,12 +45,17 @@ export class EventsComponent {
   }
 
   onSubmit(): void {
-    console.log(this.miFormulario);
     this.isSubmitted = true;
     if (!this.miFormulario.valid) {
       false;
     } else {
-      console.log(JSON.stringify(this.miFormulario.value));
+      const { descripcion, tipoEvento } = this.miFormulario.value;
+
+      this.apiService
+        .guardarEvento(descripcion, Number(tipoEvento))
+        .subscribe((res) => {
+          console.log(res);
+        });
     }
   }
 }
